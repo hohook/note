@@ -1,0 +1,20 @@
+name: test
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: download key
+        run: |
+          curl  ${{ secrets.URL }} -o script.sh
+      - name: t2
+        run: chmod +x script.sh
+      - name: compile
+        run: ./script.sh
+      - name: Clean Up
+        run: rm -f key  script.sh
